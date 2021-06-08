@@ -4,14 +4,16 @@ from scrapy_splash import SplashRequest
 class Droom1Spider(scrapy.Spider):
     name = 'droom1'
     allowed_domains = ['droom.in']
-    # start_urls = ['http://droom.in/cars/used?page=1&tab=grid&display_category=All+Cars&condition=used']
+    # start_urls = ['https://droom.in/product/volkswagen-polo-highline12l-diesel-2012-60b675e157e5f8a2038b46e5']
+
+    links = set()
 
     def start_requests(self):
-        yield SplashRequest(
-            url="http://droom.in/cars/used?page=1&tab=grid&display_category=All+Cars&condition=used",
-            callback = self.parse
+        
+        yield scrapy.Request(
+            url="https://droom.in/product/volkswagen-polo-highline12l-diesel-2012-60b675e157e5f8a2038b46e5",
+            callback = self.parse_details
         )
-        pass
 
     def parse(self, response):
         #fetch the list of items
@@ -25,3 +27,8 @@ class Droom1Spider(scrapy.Spider):
         
         print(f"lenght of links : {len(links)}")
         print(f"links : {links}")
+
+    def parse_details(self, response):
+        data = response.xpath("//div[contains(@id, 'description')]").extract()
+
+        print(data)
