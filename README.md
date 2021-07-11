@@ -1,2 +1,1 @@
-# CarData
-Contains the scrapers for extracting used cars data from web.
+# [CarData](https://github.com/Sheshipal/CarData)
